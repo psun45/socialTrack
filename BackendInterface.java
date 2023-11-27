@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.List;
+
 public interface BackendInterface<T> {
 
   /**
@@ -12,12 +15,12 @@ public interface BackendInterface<T> {
    *
    * @param filepath the filepath to the DOT file to read from
    */
-  public void readDOTFile(String filepath);
+  public void readDOTFile(String filepath)throws IOException;
 
   /**
    * Gets the closest connection (the shortest path) between two users.
    */
-  public ShortestPathInterface<T> getClosestConnection(String firstUser, String secondUser);
+  public List<String> getClosestConnection(String firstUser, String secondUser);
 
   /**
    * Gets statistics for the users of this Social Track app, and returns a string
