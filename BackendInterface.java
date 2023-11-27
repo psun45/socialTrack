@@ -1,10 +1,12 @@
-public interface BackendInterface<T> {
+import java.util.List;
+
+public interface BackendInterface {
 
   /**
    * Constructor method for the backend of our Social Track App.
    * Commented out to allow compiling.
    */
-  //public SocialTrackBackend(GraphADT<T, Double> friendGraph);
+  //public SocialTrackBackend(GraphADT<String, Double> friendGraph);
 
   /**
    * Reads data from a file in DOT format.
@@ -17,7 +19,7 @@ public interface BackendInterface<T> {
   /**
    * Gets the closest connection (the shortest path) between two users.
    */
-  public ShortestPathInterface<T> getClosestConnection(String firstUser, String secondUser);
+  public List<DijkstraGraph.SearchNode> getClosestConnection(String firstUser, String secondUser);
 
   /**
    * Gets statistics for the users of this Social Track app, and returns a string

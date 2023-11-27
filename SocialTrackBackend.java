@@ -1,7 +1,8 @@
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 
-public class SocialTrackBackend implements BackendInterface<DijkstraGraph.SearchNode> {
+public class SocialTrackBackend implements BackendInterface {
 
   private DijkstraGraph<String, Integer> userGraph;
 
@@ -15,7 +16,7 @@ public class SocialTrackBackend implements BackendInterface<DijkstraGraph.Search
   }
 
   @Override
-  public ShortestPathInterface<DijkstraGraph.SearchNode> getClosestConnection(String firstUser,
+  public List<DijkstraGraph.SearchNode> getClosestConnection(String firstUser,
       String secondUser) {
     return null;
   }

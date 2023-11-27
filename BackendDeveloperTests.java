@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
+import java.util.LinkedList;
 
 public class BackendDeveloperTests {
 
@@ -11,7 +12,7 @@ public class BackendDeveloperTests {
    */
   @Test
   public void testReadFileInvalid() {
-    BackendInterface<DijkstraGraph.SearchNode> backend = new SocialTrackBackend();
+    BackendInterface backend = new SocialTrackBackend();
     try {
       backend.readDOTFile("notreal.dot");
     } catch (Exception notFound) {
@@ -25,7 +26,7 @@ public class BackendDeveloperTests {
    */
   @Test
   public void testReadFileValid() {
-    BackendInterface<DijkstraGraph.SearchNode> backend = new SocialTrackBackend();
+    BackendInterface backend = new SocialTrackBackend();
     try {
       backend.readDOTFile("socialnetwork.dot");
     } catch (Exception unexpected) {
@@ -42,7 +43,7 @@ public class BackendDeveloperTests {
   @Test
   public void testGetEmptyAppStats() {
     // Initially empty, no users or friendships, NaN average friends
-    BackendInterface<DijkstraGraph.SearchNode> backend = new SocialTrackBackend();
+    BackendInterface backend = new SocialTrackBackend();
     String emptyAppStats = backend.getAppStats();
     String emptyGraphStats = "Total Users: 0\nTotal Friendships: 0\nAverage Friends Per User: NaN\n";
     assertEquals(emptyAppStats, emptyGraphStats, "Did not properly display stats for an empty graph!");
@@ -56,7 +57,7 @@ public class BackendDeveloperTests {
    */
   @Test
   public void testGetAppStats() {
-    BackendInterface<DijkstraGraph.SearchNode> backend = new SocialTrackBackend();
+    BackendInterface backend = new SocialTrackBackend();
     backend.readDOTFile("socialnetwork.dot");
     String appStats = backend.getAppStats();
     String graphStats = "Total Users: 100\nTotal Friendships: 343\nAverage Friends Per User: 3.43\n";
@@ -71,8 +72,8 @@ public class BackendDeveloperTests {
    */
   @Test
   public void testGetClosestConnectionValid() {
-    BackendInterface<DijkstraGraph.SearchNode> backend = new SocialTrackBackend();
-    ShortestPathInterface<DijkstraGraph.SearchNode> friendPath = null;
+    BackendInterface backend = new SocialTrackBackend();
+    List<DijkstraGraph.SearchNode> friendPath = new LinkedList<>();
     try {
       friendPath = backend.getClosestConnection("user1", "user10");
     } catch (Exception unexpected) {
@@ -80,7 +81,6 @@ public class BackendDeveloperTests {
        + unexpected.getMessage());
     }
     assertTrue(friendPath != null, "ShortestPath object remained null after method call!");
-    // TODO: Expand test after implementation
   }
- 
+
 }
