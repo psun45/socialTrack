@@ -1,14 +1,20 @@
 import java.util.List;
 
-public class ShortestPath implements ShortestPathInterface<DijkstraGraph.SearchNode> {
+public class ShortestPath implements ShortestPathInterface<String> {
+
+  // The result of a Dijkstra's Algorithm search
+  private List<String> userList;
+
+  public ShortestPath(List<String> userList) {
+    this.userList = userList;
+  }
 
   @Override
-  public List<DijkstraGraph.SearchNode> getFriendPath(String firstUser, String secondUser) {
-    return null;
-  }
+  public List<String> getFriendPath() { return userList; }
 
   @Override
   public int getNumIntermediaryFriends() {
-    return 0;
+    return userList.size();
   }
+
 }

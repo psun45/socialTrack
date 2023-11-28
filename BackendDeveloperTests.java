@@ -1,37 +1,35 @@
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.File;
 import java.util.List;
 import java.util.LinkedList;
 
 public class BackendDeveloperTests {
 
   /**
-   * This test ensures that the readDOTFile() method responds appropriately when given
-   * an invalid file name (i.e. throws an exception).
+   * This test ensures that the readDOTFile() method signals when it is unsuccessful
+   * by returning false.
    */
   @Test
   public void testReadFileInvalid() {
-    BackendInterface backend = new SocialTrackBackend();
-    try {
-      backend.readDOTFile("notreal.dot");
-    } catch (Exception notFound) {
-      assertEquals(notFound.getMessage(), "File not found! Please enter a valid file name.");
-    }
+    BackendInterface backend = new Backend();
+    assertFalse(backend.readDOTFile("notDOT.exe")); // not DOT file
+    assertFalse(backend.readDOTFile("notreal.dot")); // DOT file, does not exist
   }
 
   /**
-   * This test ensures that the readDOTFile() method does not throw any exceptions when given
-   * an existing, valid DOT file.
+   * This test ensures that the readDOTFile() method loads a DOT file, does not throw
+   * any exceptions, and returns true when given an existing, valid DOT file.
    */
   @Test
   public void testReadFileValid() {
-    BackendInterface backend = new SocialTrackBackend();
-    try {
-      backend.readDOTFile("socialnetwork.dot");
-    } catch (Exception unexpected) {
-      assertTrue(false, "Encountered exception given valid file: " + unexpected.getMessage());
-    }
+    BackendInterface backend = new Backend();
+    assertTrue(backend.readDOTFile("socialnetwork.dot")); // Checks for exceptions and return value
+
+    String emptyGraphStats = "Total Users: 0\nTotal Friendships: 0\nAverage Friends Per User: NaN\n";
+    assertFalse(backend.getAppStats().equals(emptyGraphStats)); // Graph should not be empty
   }
 
   /**
@@ -43,7 +41,7 @@ public class BackendDeveloperTests {
   @Test
   public void testGetEmptyAppStats() {
     // Initially empty, no users or friendships, NaN average friends
-    BackendInterface backend = new SocialTrackBackend();
+    BackendInterface backend = new Backend();
     String emptyAppStats = backend.getAppStats();
     String emptyGraphStats = "Total Users: 0\nTotal Friendships: 0\nAverage Friends Per User: NaN\n";
     assertEquals(emptyAppStats, emptyGraphStats, "Did not properly display stats for an empty graph!");
@@ -57,7 +55,7 @@ public class BackendDeveloperTests {
    */
   @Test
   public void testGetAppStats() {
-    BackendInterface backend = new SocialTrackBackend();
+    BackendInterface backend = new Backend();
     backend.readDOTFile("socialnetwork.dot");
     String appStats = backend.getAppStats();
     String graphStats = "Total Users: 100\nTotal Friendships: 343\nAverage Friends Per User: 3.43\n";
@@ -72,15 +70,15 @@ public class BackendDeveloperTests {
    */
   @Test
   public void testGetClosestConnectionValid() {
-    BackendInterface backend = new SocialTrackBackend();
-    List<DijkstraGraph.SearchNode> friendPath = new LinkedList<>();
-    try {
-      friendPath = backend.getClosestConnection("user1", "user10");
-    } catch (Exception unexpected) {
-      assertTrue(false, "Encountered exception when finding the shortest path between two users: "
-       + unexpected.getMessage());
-    }
-    assertTrue(friendPath != null, "ShortestPath object remained null after method call!");
+    BackendInterface backend = new Backend();
+    backend.readDOTFile("socialnetwork.dot");
+    ShortestPathInterface<String> friendPath = backend.getClosestConnection("user1", "user10");
+    List<String> expectedList = new LinkedList<>();
+    expectedList.add("user1");
+    expectedList.add("user0");
+    expectedList.add("user10");
+    assertEquals(friendPath.getFriendPath(), expectedList);
+    assertEquals(friendPath.getNumIntermediaryFriends(), 3);
   }
 
 }
