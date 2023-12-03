@@ -94,5 +94,55 @@ public class FrontendDeveloperTests {
         // Check that the output contains the expected message
         assertTrue(output.contains("Exiting"));
     }
+    /**
+     *testIntegrationGetClosestConnection simulates the scenario where a user interacts with the frontend to
+     * find the closest connection between two users in a social network. The method
+     * tests the integration of the Frontend with the BackendPlaceholder, specifically
+     * focusing on the functionality that computes and displays the shortest path or
+     * connection between two given users.
+     * The test finds the closest connection between "User37" and "User86" after
+     * loading the social network data from "socialnetwork.dot". It then checks if the
+     * output contains the names "User37" and "User86", ensuring that the frontend
+     * correctly displays the result from the backend operation.
+     *
+     * @throws IOException if an I/O error occurs when creating the scanner or processing the input.
+     */
+    @Test
+    public void testIntegrationGetClosestConnection() throws IOException {
+        String input = "1\nsocialnetwork.dot\n3\nUser37\nUser86\n4\n"; // Simulated user input to start the program
+        TextUITester tester = new TextUITester(input);
+        Scanner scanner = new Scanner(System.in);
+        BackendPlaceholder backend = new BackendPlaceholder();
+        Frontend frontend = new Frontend(scanner, backend);
+        frontend.mainMenu();
+        String output = tester.checkOutput();
+        // Check that the output contains the expected start message
+        assertTrue(output.contains("User37") && output.contains("User86"));
+    }
+    /**
+     * testIntegrationGetAppStats uses the integration of the Frontend with the BackendPlaceholder,
+     * specifically focusing on retrieving and displaying application statistics such as
+     * "friends per user". It simulates a user's interaction with the frontend to load
+     * the social network data and then request the application statistics.
+     * This test provides simulated user input to load the social network data from the file
+     * "socialnetwork.dot" and then select the option to display the application statistics.
+     * The output is then checked to confirm that it contains the expected statistics information,
+     * such as the average number of friends per user, indicating successful integration and
+     * functionality of the frontend in displaying the backend-provided data.
+     *
+     * @throws IOException if an I/O error occurs when creating the scanner or processing the input.
+     */
+    @Test
+    public void testIntegrationGetAppStats() throws IOException {
+        String input = "1\nsocialnetwork.dot\n2\n4\n"; // Simulated user input to start the program
+        TextUITester tester = new TextUITester(input);
+        Scanner scanner = new Scanner(System.in);
+        BackendPlaceholder backend = new BackendPlaceholder();
+        Frontend frontend = new Frontend(scanner, backend);
+        frontend.mainMenu();
+        String output = tester.checkOutput();
+        // Check that the output contains the expected start message
+        assertTrue(output.contains("friends per user"));
+    }
 
 }
