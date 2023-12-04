@@ -81,4 +81,48 @@ public class BackendDeveloperTests {
     assertEquals(friendPath.getNumIntermediaryFriends(), 3);
   }
 
+  /**
+   * This method tests the output of the Frontend's showStatisticsAboutDataset() method.
+   * This test will ensure that the Frontend has been properly integrated with the Backend.
+   */
+  @Test
+  public void testAppStatsIntegration() {
+    Backend backend = new Backend();
+    backend.readDOTFile("socialnetwork.dot");
+    String graphStats = "Total Users: 100\nTotal Friendships: 343\nAverage Friends Per User: 3.43\n";
+
+    FrontendInterface frontend = new FrontendInterface(); // placeholder, will cause errors
+
+    // used to check output, no input given within showStatisticsAboutDataset()
+    TextUITester uiTester = new TextUITester("");
+    frontend.showStatisticsAboutDataset();
+    String output = uiTester.checkOutput();
+
+    assertEquals(output, graphStats, "Frontend did not display app stats to the user!");
+  }
+
+  /**
+   * This method tests the output of the Frontend's findClosestConnection() method.
+   * This test will ensure that the Frontend has been properly integrated with the Backend.
+   */
+  @Test
+  public void testShortestPathIntegration() {
+    Backend backend = new Backend();
+    backend.readDOTFile("socialnetwork.dot");
+
+    List<String> expectedList = new LinkedList<>(); // shortest path between user1 and user10
+    expectedList.add("user1");
+    expectedList.add("user0");
+    expectedList.add("user10");
+
+    FrontendInterface frontend = new FrontendInterface(); // placeholder, will cause errors
+
+    // used to check output, gives user1 and user10 as the endpoints of the shortest path search
+    TextUITester uiTester = new TextUITester("user1\nuser10");
+    frontend.findClosestConnection();
+    String output = uiTester.checkOutput();
+
+    assertEquals(output, expectedList.toString(), "Frontend did not display the shortest path " +
+      "between two users!");
+  }
 }
