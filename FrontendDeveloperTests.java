@@ -18,7 +18,7 @@ public class FrontendDeveloperTests {
         String input = "3\nSunny\nRachel"; // Simulated user input to start the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendPlaceholder backend = new BackendPlaceholder();
+        Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
@@ -35,7 +35,7 @@ public class FrontendDeveloperTests {
         String input = "2\n";
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendPlaceholder backend = new BackendPlaceholder();
+        Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
@@ -52,7 +52,7 @@ public class FrontendDeveloperTests {
         String input = "1.dot\n"; // Replace with the option to load data
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendPlaceholder backend = new BackendPlaceholder();
+        Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend) {
         };
         frontend.loadDataFile();
@@ -70,7 +70,7 @@ public class FrontendDeveloperTests {
         String input = "invalidOption\n"; // Simulated user input for an invalid option
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendPlaceholder backend = new BackendPlaceholder();
+        Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
@@ -87,7 +87,7 @@ public class FrontendDeveloperTests {
         String input = "4\n"; // Replace with the option to exit the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendPlaceholder backend = new BackendPlaceholder();
+        Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
@@ -112,7 +112,7 @@ public class FrontendDeveloperTests {
         String input = "1\nsocialnetwork.dot\n3\nUser37\nUser86\n4\n"; // Simulated user input to start the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendPlaceholder backend = new BackendPlaceholder();
+        Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
@@ -137,7 +137,7 @@ public class FrontendDeveloperTests {
         String input = "1\nsocialnetwork.dot\n2\n4\n"; // Simulated user input to start the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendPlaceholder backend = new BackendPlaceholder();
+        Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();

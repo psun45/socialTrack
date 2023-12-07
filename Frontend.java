@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Frontend implements FrontendInterface {
     private Scanner scanner;
-    private BackendPlaceholder backend = new BackendPlaceholder();
+    private Backend backend = new Backend();
 
-    public Frontend(Scanner scanner, BackendPlaceholder backend) {
+    public Frontend(Scanner scanner, Backend backend) {
         this.scanner = scanner;
         this.backend = backend;
     }
