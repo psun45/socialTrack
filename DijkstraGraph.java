@@ -10,8 +10,9 @@ import java.util.PriorityQueue;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
-//import org.junit.jupiter.api.Test;
-//import static org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class extends the BaseGraph data structure with additional methods for
@@ -81,13 +82,13 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
      *                                correspond to a graph node
      */
     protected SearchNode computeShortestPath(NodeType start, NodeType end) {
-        // if either argument is null, throw an exception
-        if (start == null) { throw new IllegalArgumentException("Start node cannot be null!"); }
-        if (end == null) { throw new IllegalArgumentException("End node cannot be null!"); }
-
-        // if either argument is not in the graph, throw an exception
-        if (!this.containsNode(start)) { throw new NoSuchElementException("Start value not in graph!"); }
-        if (!this.containsNode(end)) { throw new NoSuchElementException("End value not in graph!"); }
+        // if either argument is not in the graph, throw an exception (also checks for null args)
+        if (start == null || !this.containsNode(start)) {
+	    throw new NoSuchElementException("Start value not in graph!");
+	}
+        if (end == null || !this.containsNode(end)) {
+	    throw new NoSuchElementException("End value not in graph!");
+	}
 
         SearchNode sourceNode = new SearchNode(nodes.get(start), 0, null);
 
@@ -98,7 +99,8 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
         // Stores Nodes to check for a shorter path, starts with first added
         PriorityQueue<SearchNode> searchQueue = new PriorityQueue<>();
         searchQueue.add(sourceNode); // add starting node
-        if (start.equals(end)) { return visitedNodes.get(start); } // same node, no search needed
+
+	if (start.equals(end)) { return visitedNodes.get(start); } // same node, no search needed
 
         // Keeps running until all paths have been searched for shortest path
         while (!searchQueue.isEmpty()) {
@@ -114,16 +116,16 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
                     searchQueue.add(adjacentNode);
                 }
 
-                // Case 2: Node already visited, check for shorter distance
-                if (visitedNodes.get(adjacentNode.node.data).cost > currNode.cost + leavingEdge.data.doubleValue()) {
-                    // Update predecessor and distance
+                // Case 2: Node already visited, shorter distance
+		if (visitedNodes.get(adjacentNode.node.data).cost > currNode.cost + leavingEdge.data.doubleValue()) {
+		    // Update predecessor and distance
                     visitedNodes.get(adjacentNode.node.data).cost = currNode.cost + leavingEdge.data.doubleValue();
                     visitedNodes.get(adjacentNode.node.data).predecessor = currNode;
-                    searchQueue.add(adjacentNode);
+		    searchQueue.add(adjacentNode);
                 }
             }
         }
-        
+
         if (!visitedNodes.containsKey(end)) {
             throw new NoSuchElementException("No direct path found in search!");
         }
@@ -152,6 +154,7 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
             keyList.addFirst(currNode.node.data); // maintains proper node order when adding
             currNode = currNode.predecessor;
         }
+
         return keyList;
 	}
 
@@ -172,8 +175,8 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
     /**
      * Tests implementation of Dijkstra's algorithm using an example from lecture.
      */
-    //@Test
-    public static void testLectureExample() {
+    @Test
+    public void testLectureExample() {
         // Graph Setup - Example from Week 9, Thursday
         DijkstraGraph<Character, Integer> dijkstraGraph = new DijkstraGraph<>(new PlaceholderMap<>());
         dijkstraGraph.insertNode('A');
@@ -201,16 +204,18 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
         dijkstraGraph.insertEdge('M', 'F', 4);
         dijkstraGraph.insertEdge('M', 'E', 3);
 
-        System.out.println(dijkstraGraph.shortestPathData('D', 'I'));
-        System.out.println(dijkstraGraph.shortestPathCost('D', 'I'));
+        assertEquals(dijkstraGraph.shortestPathData('D', 'I').toString(), "[D, A, H, I]",
+            "Did not return proper shortest path!");
+        assertEquals(dijkstraGraph.shortestPathCost('D', 'I'), 17.0, "Returned incorrect cost!");
+
     }
 
     /**
      * Tests method to find cost and sequence of data using the same graph as the
      * previous test, but with different start and end points.
      */
-    //@Test
-    public static void testCostAndSequence() {
+    @Test
+    public void testCostAndSequence() {
         // Graph Setup
         DijkstraGraph<Character, Integer> dijkstraGraph = new DijkstraGraph<>(new PlaceholderMap<>());
         dijkstraGraph.insertNode('A');
@@ -238,16 +243,17 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
         dijkstraGraph.insertEdge('M', 'F', 4);
         dijkstraGraph.insertEdge('M', 'E', 3);
 
-        System.out.println(dijkstraGraph.shortestPathData('I', 'E'));
-        System.out.println(dijkstraGraph.shortestPathCost('I', 'E'));
+        assertEquals(dijkstraGraph.shortestPathData('I', 'E').toString(), "[I, D, A, B, M, E]",
+            "Did not return proper shortest path!");
+        assertEquals(dijkstraGraph.shortestPathCost('I', 'E'), 15.0, "Returned incorrect cost!");
     }
 
     /**
      * Tests implementation behavior when there is no directed path between the two
      * nodes the user is attempting to find a path between.
      */
-    //@Test
-    public static void testNoDirectedPath() {
+    @Test
+    public void testNoDirectedPath() {
         // Graph Setup
         DijkstraGraph<Character, Integer> dijkstraGraph = new DijkstraGraph<>(new PlaceholderMap<>());
         dijkstraGraph.insertNode('A');
@@ -277,23 +283,10 @@ public class DijkstraGraph<NodeType, EdgeType extends Number>
 
         try {
             dijkstraGraph.computeShortestPath('G', 'I');
+            assertTrue(false, "Did not catch error when given unconnected nodes!");
         } catch (NoSuchElementException noPath) {
-            System.out.println(noPath.getMessage());
-        }
-        try {
-            dijkstraGraph.shortestPathCost('G', 'I');
-        } catch (NoSuchElementException noPath) {
-            System.out.println(noPath.getMessage());
-        }
-        try {
-            dijkstraGraph.shortestPathData('G', 'I');
-        } catch (NoSuchElementException noPath) {
-            System.out.println(noPath.getMessage());
+            assertEquals(noPath.getMessage(), "No direct path found in search!");
         }
     }
-    public static void main(String[] args) {
-        testLectureExample();
-        testNoDirectedPath();
-        testCostAndSequence();
-    }
+
 }
