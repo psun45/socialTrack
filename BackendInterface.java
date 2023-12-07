@@ -11,6 +11,7 @@ public interface BackendInterface {
    * This data will be stored in the GraphADT argument given to the constructor.
    *
    * @param filepath the filepath to the DOT file to read from
+   *
    * @return true if the file was read successfully, false otherwise
    */
   public boolean readDOTFile(String filepath);

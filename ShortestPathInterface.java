@@ -4,8 +4,9 @@ public interface ShortestPathInterface<T> {
 
   /**
    * Constructor method for a Shortest Path instance.
-   * Run Dijkstra's algorithm to find this path, then store it as a
-   * list of nodes (users).
+   *
+   * Run Dijkstra's algorithm to find this path, then stores it as a
+   * list of nodes (users), and stores the number of nodes in this path.
    * Commented out to allow compiling.
    */
   // public ShortestPath<T>(List<T> path);
