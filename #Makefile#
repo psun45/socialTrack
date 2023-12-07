@@ -1,0 +1,8 @@
+runFDTests : FrontendDeveloperTests.java Frontend.java BackendPlaceholder.java
+	java -jar ../junit5.jar -cp . -c FrontendDeveloperTests
+	javac -cp .:../junit5.jar FrontendDeveloperTest.java
+	javac Frontend.java
+	
+
+clean:
+	rm -f *.class
