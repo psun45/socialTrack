@@ -15,15 +15,15 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testClosestFriend() throws IOException {
-        String input = "3\nSunny\nRachel"; // Simulated user input to start the program
+        String input = "1\nsocialnetwork.dot\n3\nuser1\nuser2\n4"; // Simulated user input to start the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
         Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
-        frontend.mainMenu();
+        frontend.start();
         String output = tester.checkOutput();
         // Check that the output contains the expected start message
-        assertTrue(output.contains("Closest"));
+        assertTrue(output.contains("user1"));
     }
     /**
      * Tests the mainMenu method of the FrontendInterface.
@@ -32,15 +32,15 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testMainMenu() throws IOException {
-        String input = "2\n";
+        String input = "1\nsocialnetwork.dot\n2\n4";
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
         Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
-        frontend.mainMenu();
+        frontend.start();
         String output = tester.checkOutput();
         // Check that the output contains the expected main menu message
-        assertTrue(output.contains("stat"));
+        assertTrue(output.contains("100"));
     }
     /**
      * Tests the loadDataFile method of the FrontendInterface.
@@ -49,16 +49,16 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testLoadDataFile() throws IOException {
-        String input = "1.dot\n"; // Replace with the option to load data
+        String input = "1\n1.dot\n4"; // Replace with the option to load data
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
         Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend) {
         };
-        frontend.loadDataFile();
+        frontend.start();
         String output = tester.checkOutput();
         // Check that the output contains the expected message
-        assertTrue(output.contains("Data file loaded"));
+        assertTrue(output.contains("Error"));
     }
     /**
      * Tests the handling of invalid options in the mainMenu method of the FrontendInterface.
@@ -67,12 +67,12 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testInvalidOptionMainMenu() throws IOException {
-        String input = "invalidOption\n"; // Simulated user input for an invalid option
+        String input = "invalidOption\n4"; // Simulated user input for an invalid option
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
         Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
-        frontend.mainMenu();
+        frontend.start();
         String output = tester.checkOutput();
         // Check that the output contains the expected message
         assertTrue(output.contains("Invalid"));
@@ -109,15 +109,15 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testIntegrationGetClosestConnection() throws IOException {
-        String input = "1\nsocialnetwork.dot\n3\nUser37\nUser86\n4\n"; // Simulated user input to start the program
+        String input = "1\nsocialnetwork.dot\n3\nuser37\nuser86\n4"; // Simulated user input to start the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
         Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
-        frontend.mainMenu();
+        frontend.start();
         String output = tester.checkOutput();
         // Check that the output contains the expected start message
-        assertTrue(output.contains("User37") && output.contains("User86"));
+        assertTrue(output.contains("user37") && output.contains("user86"));
     }
     /**
      * testIntegrationGetAppStats uses the integration of the Frontend with the BackendPlaceholder,
@@ -139,10 +139,10 @@ public class FrontendDeveloperTests {
         Scanner scanner = new Scanner(System.in);
         Backend backend = new Backend();
         Frontend frontend = new Frontend(scanner, backend);
-        frontend.mainMenu();
+        frontend.start();
         String output = tester.checkOutput();
         // Check that the output contains the expected start message
-        assertTrue(output.contains("friends per user"));
+        assertTrue(output.contains("Friends"));
     }
 
 }

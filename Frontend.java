@@ -87,18 +87,14 @@ public class Frontend implements FrontendInterface {
             return;
         }else {
             //reads the file
-            try {
-                backend.readDOTFile(filepath);
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found. Please try again.");
-                return;
-            } catch (IOException e) {
-                System.out.println("Error reading file. Please try again.");
-                return;
-            }
+	    if( backend.readDOTFile(filepath)){
+		System.out.println("Data file loaded.");
+	    }else{
+		System.out.println("Error reading file.Please try again.");
+	    }
 
+		
         }
-        System.out.println("Data file loaded.");
     }
     /**
      * Show statistics about the dataset. If the backend has not been loaded, this
@@ -130,11 +126,11 @@ public class Frontend implements FrontendInterface {
         System.out.print("Enter the second person's name: ");
         //this asks for the second user
         String user2 = scanner.nextLine();
-        List<String> connectionPath = backend.getClosestConnection(user1, user2);
+        ShortestPathInterface<String> connectionPath = backend.getClosestConnection(user1, user2);
         if (connectionPath == null) {
             System.out.println("No connection found between the two users.");
         } else {
-            System.out.println("Closest connection path: " + connectionPath);
+            System.out.println("Closest connection path: " + connectionPath.getFriendPath());
         }
     }
     /**
@@ -143,5 +139,12 @@ public class Frontend implements FrontendInterface {
     @Override
     public void showExitMessage() {
         System.out.println("Exiting the application. Goodbye!");
+    }
+
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        Backend backend = new Backend();
+        Frontend frontend = new Frontend(sc, backend);
+        frontend.start();
     }
 }

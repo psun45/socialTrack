@@ -1,8 +1,10 @@
 runFDTests : FrontendDeveloperTests.class
 	java -jar ../junit5.jar -cp . -c FrontendDeveloperTests
-FrontendDeveloperTests.class: FrontendDeveloperTests.java Frontend.java BackendPlaceholder.java
+FrontendDeveloperTests.class: FrontendDeveloperTests.java Frontend.java Backend.java DijkstraGraph.java
 	javac Frontend.java
-	javac BackendPlaceholder.java
+	javac Backend.java
+	javac ShortestPath.java
+	javac -cp .:../junit5.jar DijkstraGraph.java
 	javac -cp .:../junit5.jar FrontendDeveloperTests.java
 runBDTests: compileBDTests
 	java -jar ../junit5.jar -cp . -c BackendDeveloperTests

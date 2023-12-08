@@ -1,6 +1,5 @@
 import java.io.IOException;
 
-public interface BackendInterface<T> {
 public interface BackendInterface {
 
   /**

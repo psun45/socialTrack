@@ -1,0 +1,99 @@
+Script started on 2023-11-27 23:01:55+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="118" LINES="60"]
+git status
+git log -1
+make clean
+ls
+make runBDTests / make runFDTests (depending on your role)
+exit]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ git status
+On branch frontend
+Your branch is ahead of 'origin/frontend' by 3 commits.
+  (use "git push" to publish your loca]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ git log -1
+[?1h=[33mcommit 943796d7e48137d4137a66fb6040d731f9ca1b4d[m[33m ([m[1;36mHEAD -> [m[1;32mfrontend[m[33m)[m[m
+Author: Patrick Sun <psun45@wisc.edu>[m
+Date:   Mon Nov 27 23:00:52 2023 +0000[m
+[m
+    Makefile modified[m
+[K[?1l>]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ make clean
+rm -f *.class
+]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ ls
+BackendInterface.java    Frontend.java                GraphADT.java  PlaceholderMap.java         log
+BackendPlaceholder.java  FrontendDeveloperTests.java  Makefile       ShortestPathInterface.java  socialnetwork.dot
+BaseGraph.java           FrontendInterface.java       MapADT.java    TextUITester.java
+]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ make runBDTests / make runFDTests (depending on your role)
+bash: syntax error near unexpected token `('
+]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ exit[K[K[K[Kmake runB[KFDTests
+javac -cp .:../junit5.jar FrontendDeveloperTests.java
+java -jar ../junit5.jar -cp . -c FrontendDeveloperTests
+=======
+[?2004h]0;jlsmith42@js-cs400-vm: ~/p2[01;32mjlsmith42@js-cs400-vm[00m:[01;34m~/p2[00m$ git log -1
+[?2004l[?1h=[33mcommit 8141c966b1075a09c373229dea8a1c2f64b5a7ab[m[33m ([m[1;36mHEAD -> [m[1;32mbackend[m[33m, [m[1;31morigin/back[m [33m[m[33m[m[1;36m[m[1;32m[m[33m[m[1;31mend[m[33m)[m[m
+Author: Jordan Leon Smith <jlsmith42@wisc.edu>[m
+Date:   Tue Nov 28 05:07:09 2023 +0000[m
+[m
+    Updated Interfaces Per Group Discussion, Updated Tests, Implemented Backe[m nd, Added Makefile[m
+[K[?1l>[?2004h]0;jlsmith42@js-cs400-vm: ~/p2[01;32mjlsmith42@js-cs400-vm[00m:[01;34m~/p2[00m$ make clean
+[?2004lrm *.class
+[?2004h]0;jlsmith42@js-cs400-vm: ~/p2[01;32mjlsmith42@js-cs400-vm[00m:[01;34m~/p2[00m$ ls
+[?2004lBackend.java                Makefile
+BackendDeveloperTests.java  MapADT.java
+BackendInterface.java       PlaceholderMap.java
+BaseGraph.java              ShortestPath.java
+DijkstraGraph.java          ShortestPathInterface.java
+FrontendInterface.java      log
+GraphADT.java               socialnetwork.dot
+[?2004h]0;jlsmith42@js-cs400-vm: ~/p2[01;32mjlsmith42@js-cs400-vm[00m:[01;34m~/p2[00m$ make runBDTests 
+[?2004ljavac -cp .:../junit5.jar BackendDeveloperTests.java
+java -jar ../junit5.jar -cp . -c BackendDeveloperTests
+>>>>>>> origin/backend
+
+Thanks for using JUnit! Support its development at https://junit.org/sponsoring
+
+[36m╷[0m
+[36m├─[0m [36mJUnit Jupiter[0m [32m✔[0m
+<<<<<<< HEAD
+[36m│  └─[0m [36mFrontendDeveloperTests[0m [32m✔[0m
+[36m│     ├─[0m [34mtestClosestFriend()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestInvalidOptionMainMenu()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestLoadDataFile()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestMainMenu()[0m [32m✔[0m
+[36m│     └─[0m [34mtestExitProgram()[0m [32m✔[0m
+[36m├─[0m [36mJUnit Vintage[0m [32m✔[0m
+[36m└─[0m [36mJUnit Platform Suite[0m [32m✔[0m
+
+Test run finished after 165 ms
+=======
+[36m│  └─[0m [36mBackendDeveloperTests[0m [32m✔[0m
+[36m│     ├─[0m [34mtestGetAppStats()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestReadFileValid()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestReadFileInvalid()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestGetEmptyAppStats()[0m [32m✔[0m
+[36m│     └─[0m [34mtestGetClosestConnectionValid()[0m [32m✔[0m
+[36m├─[0m [36mJUnit Vintage[0m [32m✔[0m
+[36m└─[0m [36mJUnit Platform Suite[0m [32m✔[0m
+
+Test run finished after 407 ms
+>>>>>>> origin/backend
+[         4 containers found      ]
+[         0 containers skipped    ]
+[         4 containers started    ]
+[         0 containers aborted    ]
+[         4 containers successful ]
+[         0 containers failed     ]
+[         5 tests found           ]
+[         0 tests skipped         ]
+[         5 tests started         ]
+[         0 tests aborted         ]
+[         5 tests successful      ]
+[         0 tests failed          ]
+
+<<<<<<< HEAD
+]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ exit
+exit
+
+Script done on 2023-11-27 23:02:28+00:00 [COMMAND_EXIT_CODE="0"]
+=======
+[?2004h]0;jlsmith42@js-cs400-vm: ~/p2[01;32mjlsmith42@js-cs400-vm[00m:[01;34m~/p2[00m$ exit
+[?2004lexit
+
+Script done on 2023-11-28 05:09:43+00:00 [COMMAND_EXIT_CODE="0"]
+>>>>>>> origin/backend
