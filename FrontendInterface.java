@@ -51,7 +51,6 @@ public interface FrontendInterface {
      * a data file.
      */
     public void loadDataFile() throws FileNotFoundException, IOException;
-
     /**
      * Show statistics about the dataset. If the backend has not been loaded, this
      * sub-menu should not be called--but if it is, it should display a helpful

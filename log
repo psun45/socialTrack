@@ -8,12 +8,6 @@ exit]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[0
 On branch frontend
 Your branch is ahead of 'origin/frontend' by 3 commits.
   (use "git push" to publish your local commits)
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-	[31mlog[m
-
-nothing added to commit but untracked files present (use "git add" to track)
 ]0;psun45@my-cs400-vm: ~/p2[01;32mpsun45@my-cs400-vm[00m:[01;34m~/p2[00m$ git log -1
 [?1h=[33mcommit 943796d7e48137d4137a66fb6040d731f9ca1b4d[m[33m ([m[1;36mHEAD -> [m[1;32mfrontend[m[33m)[m[m
 Author: Patrick Sun <psun45@wisc.edu>[m
@@ -32,10 +26,9 @@ bash: syntax error near unexpected token `('
 javac -cp .:../junit5.jar FrontendDeveloperTests.java
 java -jar ../junit5.jar -cp . -c FrontendDeveloperTests
 
-Thanks for using JUnit! Support its development at https://junit.org/sponsoring
-
 [36m╷[0m
 [36m├─[0m [36mJUnit Jupiter[0m [32m✔[0m
+<<<<<<< HEAD
 [36m│  └─[0m [36mFrontendDeveloperTests[0m [32m✔[0m
 [36m│     ├─[0m [34mtestClosestFriend()[0m [32m✔[0m
 [36m│     ├─[0m [34mtestInvalidOptionMainMenu()[0m [32m✔[0m
