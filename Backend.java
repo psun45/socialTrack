@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,5 +80,16 @@ public class Backend implements BackendInterface {
     double averageFriends = (double) numFriendships / userGraph.getNodeCount();
     appStats += "Average Friends Per User: " + averageFriends + "\n";
     return appStats;
+  }
+
+  public static void main(String[] args) {
+    Backend backend = new Backend();
+    Scanner input = new Scanner(System.in);
+    Frontend frontend = new Frontend(input, backend);
+    try {
+      frontend.start();
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

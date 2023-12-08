@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -5,9 +6,9 @@ import java.util.List;
 
 public class Frontend implements FrontendInterface {
     private Scanner scanner;
-    private BackendPlaceholder backend = new BackendPlaceholder();
+    private Backend backend = new Backend();
 
-    public Frontend(Scanner scanner, BackendPlaceholder backend) {
+    public Frontend(Scanner scanner, Backend backend) {
         this.scanner = scanner;
         this.backend = backend;
     }
@@ -87,19 +88,15 @@ public class Frontend implements FrontendInterface {
             return;
         }else {
             //reads the file
-            try {
-                backend.readDOTFile(filepath);
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found. Please try again.");
-                return;
-            } catch (IOException e) {
+            if (backend.readDOTFile(filepath)) {
+		System.out.println("Data file loaded.");
+            } else {
                 System.out.println("Error reading file. Please try again.");
-                return;
             }
-
         }
-        System.out.println("Data file loaded.");
+
     }
+
     /**
      * Show statistics about the dataset. If the backend has not been loaded, this
      * sub-menu should not be called--but if it is, it should display a helpful
@@ -115,6 +112,7 @@ public class Frontend implements FrontendInterface {
         String stats = backend.getAppStats();
         System.out.println(stats);
     }
+
     /**
      * Find the closest connection between two participants. Show a helpful message
      * that describes which, if any, of the participants are not in the dataset.
@@ -130,13 +128,19 @@ public class Frontend implements FrontendInterface {
         System.out.print("Enter the second person's name: ");
         //this asks for the second user
         String user2 = scanner.nextLine();
-        List<String> connectionPath = backend.getClosestConnection(user1, user2);
-        if (connectionPath == null) {
+	ShortestPathInterface<String> connectionPath = null;
+	try {
+          connectionPath = backend.getClosestConnection(user1, user2);
+        } catch (NoSuchElementException e) {
+	  System.out.println(e.getMessage());
+	}
+	if (connectionPath == null) {
             System.out.println("No connection found between the two users.");
         } else {
-            System.out.println("Closest connection path: " + connectionPath);
+            System.out.println("Closest connection path: " + connectionPath.getFriendPath());
         }
     }
+
     /**
      * Prints an exit message. Exiting is handled by the main menu.
      */
