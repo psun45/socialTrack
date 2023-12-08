@@ -8,6 +8,7 @@ Untracked files:
 	[31mlog[m
 
 nothing added to commit but untracked files present (use "git add" to track)
+
 [?2004h]0;jlsmith42@js-cs400-vm: ~/p2[01;32mjlsmith42@js-cs400-vm[00m:[01;34m~/p2[00m$ git log -1
 [?2004l[?1h=[33mcommit 8141c966b1075a09c373229dea8a1c2f64b5a7ab[m[33m ([m[1;36mHEAD -> [m[1;32mbackend[m[33m, [m[1;31morigin/back[m [33m[m[33m[m[1;36m[m[1;32m[m[33m[m[1;31mend[m[33m)[m[m
 Author: Jordan Leon Smith <jlsmith42@wisc.edu>[m
@@ -42,6 +43,7 @@ Thanks for using JUnit! Support its development at https://junit.org/sponsoring
 [36m└─[0m [36mJUnit Platform Suite[0m [32m✔[0m
 
 Test run finished after 407 ms
+
 [         4 containers found      ]
 [         0 containers skipped    ]
 [         4 containers started    ]

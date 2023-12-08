@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  * Implementations should have one constructor that takes:
  * <ul>
@@ -16,7 +19,7 @@ public interface FrontendInterface {
     /**
      * Start running the main menu of the program, until it returns false.
      */
-    public void start();
+    public void start() throws IOException;
 
     /**
      * Display the main menu of the program, take the user's selection, call
@@ -37,7 +40,7 @@ public interface FrontendInterface {
      * @return true if the program should continue running, or false if it has
      *         exited.
      */
-    public boolean mainMenu();
+    public boolean mainMenu() throws IOException;
 
     // sub menu functions, called by mainMenu as needed.
 
@@ -47,7 +50,7 @@ public interface FrontendInterface {
      * not be called by {@link #mainMenu()} if the backend has already loaded
      * a data file.
      */
-    public void loadDataFile();
+    public void loadDataFile() throws FileNotFoundException, IOException;
 
     /**
      * Show statistics about the dataset. If the backend has not been loaded, this

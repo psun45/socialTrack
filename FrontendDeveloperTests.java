@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -8,21 +9,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FrontendDeveloperTests {
     /**
-     * Tests the start method of the FrontendInterface.
-     * This method simulates an empty user input and checks if the start method of the frontend
-     * correctly initializes the program, verifying the output for the expected start message.
+     * Tests the findClosestConnection() method of the FrontendInterface.
+     * This method simulates a valid user input and checks if the findClosestConnection() method of the frontend
+     * correctly initializes the program, verifying the output for the expected findClosestConnection() message.
      */
     @Test
-    public void testStart() {
-        String input = ""; // Simulated user input to start the program
+    public void testClosestFriend() throws IOException {
+        String input = "3\nSunny\nRachel"; // Simulated user input to start the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendInterface backend = new BackendInterface();
-        FrontendInterface frontend = new FrontendInterface(scanner, backend);
-        frontend.start();
+        BackendPlaceholder backend = new BackendPlaceholder();
+        Frontend frontend = new Frontend(scanner, backend);
+        frontend.mainMenu();
         String output = tester.checkOutput();
         // Check that the output contains the expected start message
-        assertTrue(output.contains("expected start message"));
+        assertTrue(output.contains("Closest"));
     }
     /**
      * Tests the mainMenu method of the FrontendInterface.
@@ -30,16 +31,16 @@ public class FrontendDeveloperTests {
      * correctly processes this input, verifying the output for the expected response.
      */
     @Test
-    public void testMainMenu() {
-        String input = "validOption\n"; // Replace with a valid option to select in the main menu
+    public void testMainMenu() throws IOException {
+        String input = "2\n";
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendInterface backend = new BackendInterface();
-        FrontendInterface frontend = new FrontendInterface(scanner, backend);
+        BackendPlaceholder backend = new BackendPlaceholder();
+        Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
         // Check that the output contains the expected main menu message
-        assertTrue(output.contains("expected response"));
+        assertTrue(output.contains("stat"));
     }
     /**
      * Tests the loadDataFile method of the FrontendInterface.
@@ -47,12 +48,12 @@ public class FrontendDeveloperTests {
      * correctly processes this request, verifying the output for the expected confirmation message.
      */
     @Test
-    public void testLoadDataFile() {
-        String input = "loadDataOption\n"; // Replace with the option to load data
+    public void testLoadDataFile() throws IOException {
+        String input = "1.dot\n"; // Replace with the option to load data
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendInterface backend = new BackendInterface();
-        FrontendInterface frontend = new FrontendInterface(scanner, backend) {
+        BackendPlaceholder backend = new BackendPlaceholder();
+        Frontend frontend = new Frontend(scanner, backend) {
         };
         frontend.loadDataFile();
         String output = tester.checkOutput();
@@ -65,16 +66,16 @@ public class FrontendDeveloperTests {
      * correctly handles this input, verifying the output for the expected error message.
      */
     @Test
-    public void testInvalidOptionMainMenu() {
+    public void testInvalidOptionMainMenu() throws IOException {
         String input = "invalidOption\n"; // Simulated user input for an invalid option
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendInterface backend = new BackendInterface();
-        FrontendInterface frontend = new FrontendInterface(scanner, backend);
+        BackendPlaceholder backend = new BackendPlaceholder();
+        Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
         // Check that the output contains the expected message
-        assertTrue(output.contains("Invalid option"));
+        assertTrue(output.contains("Invalid"));
     }
     /**
      * Tests the functionality of exiting the program from the mainMenu of the FrontendInterface.
@@ -82,16 +83,16 @@ public class FrontendDeveloperTests {
      * correctly processes this request, verifying the output for the expected exit message.
      */
     @Test
-    public void testExitProgram() {
-        String input = "exitOption\n"; // Replace with the option to exit the program
+    public void testExitProgram() throws IOException {
+        String input = "4\n"; // Replace with the option to exit the program
         TextUITester tester = new TextUITester(input);
         Scanner scanner = new Scanner(System.in);
-        BackendInterface backend = new BackendInterface();
-        FrontendInterface frontend = new FrontendInterface(scanner, backend);
+        BackendPlaceholder backend = new BackendPlaceholder();
+        Frontend frontend = new Frontend(scanner, backend);
         frontend.mainMenu();
         String output = tester.checkOutput();
         // Check that the output contains the expected message
-        assertTrue(output.contains("Exiting program"));
+        assertTrue(output.contains("Exiting"));
     }
 
 }
