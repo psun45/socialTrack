@@ -144,5 +144,36 @@ public class FrontendDeveloperTests {
         // Check that the output contains the expected start message
         assertTrue(output.contains("Friends"));
     }
-
+/**
+     * Tests the `getClosestConnection` method of the Backend class.
+     * This test verifies that the method correctly identifies the shortest path
+     * (closest connection) between two users in a social network graph.
+     * The path returned should contain "user1" as part of the shortest path.
+     * - The number of friends on this path should be 2.
+     *
+     * @throws IOException if reading from the "socialnetwork.dot" file fails.
+     */
+    @Test
+    public void testGetClosestConnection() throws IOException {
+        Backend backend = new Backend();
+        backend.readDOTFile("socialnetwork.dot");
+        ShortestPathInterface<String> path = backend.getClosestConnection("user0", "user1");
+        assertTrue(path.getFriendPath().contains("user1"));
+        assertEquals(2, path.getNumIntermediaryFriends());
+    }
+    /**
+     * Tests the `getAppStats` method of the Backend class.
+     * This test checks whether the method accurately provides statistics about
+     * the social network graph after loading data from a .dot file.
+     * The method should return a string containing the statistics of the graph.
+     *
+     * @throws IOException if reading from the "socialnetwork.dot" file fails.
+     */
+    @Test
+    public void testShowingStat() throws IOException {
+        Backend backend = new Backend();
+        backend.readDOTFile("socialnetwork.dot");
+        String actual = backend.getAppStats();
+        assertTrue(actual.contains("100") && actual.contains("343"));
+    }
 }
