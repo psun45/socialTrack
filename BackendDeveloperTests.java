@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.File;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class BackendDeveloperTests {
 
@@ -89,16 +90,19 @@ public class BackendDeveloperTests {
   public void testAppStatsIntegration() {
     Backend backend = new Backend();
     backend.readDOTFile("socialnetwork.dot");
-    String graphStats = "Total Users: 100\nTotal Friendships: 343\nAverage Friends Per User: 3.43\n";
-
-    //FrontendInterface frontend = new FrontendInterface(); // placeholder, will cause errors
 
     // used to check output, no input given within showStatisticsAboutDataset()
-    //TextUITester uiTester = new TextUITester("");
-    //frontend.showStatisticsAboutDataset();
-    //String output = uiTester.checkOutput();
+    TextUITester uiTester = new TextUITester("");
+    Scanner input = new Scanner(System.in);
 
-    //assertEquals(output, graphStats, "Frontend did not display app stats to the user!");
+    FrontendInterface frontend = new Frontend(input, backend);
+
+    // ends with extra newline as Frontend uses println() to separate interactions
+    String graphStats = "Total Users: 100\nTotal Friendships: 343\nAverage Friends Per User: 3.43\n\n";
+    frontend.showStatisticsAboutDataset();
+    String output = uiTester.checkOutput();
+
+    assertEquals(output, graphStats, "Frontend did not display app stats to the user!");
   }
 
   /**
@@ -110,19 +114,62 @@ public class BackendDeveloperTests {
     Backend backend = new Backend();
     backend.readDOTFile("socialnetwork.dot");
 
+
+    // used to check output, gives user1 and user10 as the endpoints of the shortest path search
+    TextUITester uiTester = new TextUITester("user1\nuser10\n");
+    Scanner input = new Scanner(System.in);
+    FrontendInterface frontend = new Frontend(input, backend);
+
     List<String> expectedList = new LinkedList<>(); // shortest path between user1 and user10
     expectedList.add("user1");
     expectedList.add("user0");
     expectedList.add("user10");
 
-    //FrontendInterface frontend = new FrontendInterface(); // placeholder, will cause errors
+    frontend.findClosestConnection(); // will get input from uiTester/scanner
+    String output = uiTester.checkOutput();
 
-    // used to check output, gives user1 and user10 as the endpoints of the shortest path search
-    //TextUITester uiTester = new TextUITester("user1\nuser10");
-    //frontend.findClosestConnection();
-    //String output = uiTester.checkOutput();
-
-    //assertEquals(output, expectedList.toString(), "Frontend did not display the shortest path " +
-    //  "between two users!");
+    assertTrue(output.contains(expectedList.toString()), "Frontend did not display the shortest path " +
+      "between two users!");
   }
+
+  /**
+   * This method tests how the Frontend's loadDataFile() method behaves when given a filepath that does not
+   * lead to a DOT file. In particular, it makes sure that this method gives helpful feedback to the user,
+   * rather than throwing an error which would cause the app to stop functioning.
+   */
+  @Test
+  public void testFrontendLoadNonDOTFile() {
+    Backend backend = new Backend();
+    TextUITester uiTester = new TextUITester("notdot.exe\n"); // gives a non-DOT file as filepath
+    Scanner input = new Scanner(System.in);
+    Frontend frontend = new Frontend(input, backend);
+    try {
+      frontend.loadDataFile();
+    } catch (Exception e) {
+      assertTrue(false, "Threw an exception instead of giving feedback when given non-DOT filepath!");
+    }
+    String output = uiTester.checkOutput();
+    assertTrue(output.contains("Please enter a valid .dot file."), "Did not give feedback when given a non-DOT file!");
+  }
+
+  /**
+   * This method tests how the Frontend's loadDataFile() method behaves when given no input for the filepath.
+   * In particular, it makes sure that this method gives helpful feedback to the user, rather than throwing an
+   * error which would cause the app to stop functioning.
+   */
+  @Test
+  public void testFrontendLoadEmptyFilepath() {
+    Backend backend = new Backend();
+    TextUITester uiTester = new TextUITester("\n"); // gives no filepath
+    Scanner input = new Scanner(System.in);
+    Frontend frontend = new Frontend(input, backend);
+    try {
+      frontend.loadDataFile();
+    } catch (Exception e) {
+      assertTrue(false, "Threw an exception instead of giving feedback when given empty filepath!");
+    }
+    String output = uiTester.checkOutput();
+    assertTrue(output.contains("Please enter a valid file path."), "Did not give feedback when given an empty filepath!");
+  }
+
 }
